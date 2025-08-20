@@ -165,7 +165,7 @@ const ChangePassword: React.FC = () => {
             <li>• Mật khẩu phải có ít nhất 6 ký tự</li>
             <li>• Nên sử dụng kết hợp chữ, số và ký tự đặc biệt</li>
             <li>• Không chia sẻ mật khẩu với người khác</li>
-            <li>• Thay đổi mật khẩu định kỳ để đảm bảo bảo mật</li>
+            
           </ul>
         </div>
       </div>
