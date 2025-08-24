@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useEffect } from "react"
+import type React from "react";
+import { useState, useEffect } from "react";
 
 interface DashboardStats {
-  totalProducts: number
-  totalOrders: number
-  totalRevenue: number
-  lowStockProducts: number
-  lowStockItems: any[]
+  totalProducts: number;
+  totalOrders: number;
+  totalRevenue: number;
+  lowStockProducts: number;
+  lowStockItems: any[];
 }
 
 const Dashboard: React.FC = () => {
@@ -18,25 +18,28 @@ const Dashboard: React.FC = () => {
     totalRevenue: 0,
     lowStockProducts: 0,
     lowStockItems: [],
-  })
-  const [loading, setLoading] = useState(true)
+  });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchDashboardData()
-  }, [])
+    fetchDashboardData();
+  }, []);
 
   const fetchDashboardData = async () => {
     try {
-      const token = localStorage.getItem("token")
-      const response = await fetch("http://localhost:5000/api/dashboard/stats", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        "http://localhost:5000/api/dashboard/stats",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
-        const data = await response.json()
-        setStats(data)
+        const data = await response.json();
+        setStats(data);
       } else {
         // Fallback data if backend not available
         setStats({
@@ -48,10 +51,10 @@ const Dashboard: React.FC = () => {
             { name: "Laptop Dell", stock: 5, unit: "chiếc" },
             { name: "Chuột Logitech", stock: 8, unit: "chiếc" },
           ],
-        })
+        });
       }
     } catch (error) {
-      console.error("Error fetching dashboard data:", error)
+      console.error("Error fetching dashboard data:", error);
       // Fallback data
       setStats({
         totalProducts: 25,
@@ -62,14 +65,14 @@ const Dashboard: React.FC = () => {
           { name: "Laptop Dell", stock: 5, unit: "chiếc" },
           { name: "Chuột Logitech", stock: 8, unit: "chiếc" },
         ],
-      })
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   if (loading) {
-    return <div className="text-center py-8">Đang tải dữ liệu...</div>
+    return <div className="text-center py-8">Đang tải dữ liệu...</div>;
   }
 
   return (
@@ -86,8 +89,12 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Tổng sản phẩm</dt>
-                  <dd className="text-lg font-medium text-gray-900">{stats.totalProducts}</dd>
+                  <dt className="text-sm font-medium text-gray-500 truncate">
+                    Tổng sản phẩm
+                  </dt>
+                  <dd className="text-lg font-medium text-gray-900">
+                    {stats.totalProducts}
+                  </dd>
                 </dl>
               </div>
             </div>
@@ -102,8 +109,12 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Tổng đơn hàng</dt>
-                  <dd className="text-lg font-medium text-gray-900">{stats.totalOrders}</dd>
+                  <dt className="text-sm font-medium text-gray-500 truncate">
+                    Tổng đơn hàng
+                  </dt>
+                  <dd className="text-lg font-medium text-gray-900">
+                    {stats.totalOrders}
+                  </dd>
                 </dl>
               </div>
             </div>
@@ -118,7 +129,9 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Tổng doanh thu</dt>
+                  <dt className="text-sm font-medium text-gray-500 truncate">
+                    Tổng doanh thu
+                  </dt>
                   <dd className="text-lg font-medium text-gray-900">
                     {stats.totalRevenue.toLocaleString("vi-VN")} VNĐ
                   </dd>
@@ -136,8 +149,12 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Sản phẩm sắp hết</dt>
-                  <dd className="text-lg font-medium text-red-600">{stats.lowStockProducts}</dd>
+                  <dt className="text-sm font-medium text-gray-500 truncate">
+                    Sản phẩm sắp hết
+                  </dt>
+                  <dd className="text-lg font-medium text-red-600">
+                    {stats.lowStockProducts}
+                  </dd>
                 </dl>
               </div>
             </div>
@@ -153,7 +170,9 @@ const Dashboard: React.FC = () => {
               <span className="text-yellow-400 text-xl">⚠️</span>
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-yellow-800">Cảnh báo tồn kho thấp</h3>
+              <h3 className="text-sm font-medium text-yellow-800">
+                Cảnh báo tồn kho thấp
+              </h3>
               <div className="mt-2 text-sm text-yellow-700">
                 <p>Các sản phẩm sau đây có tồn kho thấp:</p>
                 <ul className="list-disc list-inside mt-1">
@@ -172,15 +191,20 @@ const Dashboard: React.FC = () => {
       {/* Recent Activity */}
       <div className="bg-white shadow rounded-lg">
         <div className="px-4 py-5 sm:p-6">
-          <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Hoạt động gần đây</h3>
+          <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+            Hoạt động gần đây
+          </h3>
           <div className="text-sm text-gray-500">
             <p>• Hệ thống đang hoạt động bình thường</p>
-            <p>• Dữ liệu được cập nhật lần cuối: {new Date().toLocaleString("vi-VN")}</p>
+            <p>
+              • Dữ liệu được cập nhật lần cuối:{" "}
+              {new Date().toLocaleString("vi-VN")}
+            </p>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

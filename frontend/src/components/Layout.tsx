@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { Link, useLocation, useNavigate } from "react-router-dom"
-import { useAuth } from "../contexts/AuthContext"
-import { useState } from "react"
+import type React from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { useState } from "react";
 
 interface LayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const { logout, user } = useAuth()
-  const [showUserMenu, setShowUserMenu] = useState(false)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { logout, user } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const handleLogout = () => {
-    logout()
-    navigate("/login")
-  }
+    logout();
+    navigate("/login");
+  };
 
   const menuItems = [
     { path: "/", label: "Dashboard", icon: "📊" },
@@ -26,11 +26,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { path: "/orders", label: "Đơn hàng", icon: "🛒" },
     { path: "/inventory", label: "Nhập/Xuất kho", icon: "📋" },
     { path: "/reports", label: "Báo cáo", icon: "📈" },
-  ]
+  ];
 
-  if (user?.role === "admin") {
-    menuItems.push({ path: "/users", label: "Quản lý người dùng", icon: "👥" })
-  }
+  // if (user?.role === "admin") {
+  //   menuItems.push({ path: "/users", label: "Quản lý người dùng", icon: "👥" })
+  // }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -39,7 +39,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-gray-900">Initation Việt Nam - Quản lý kho hàng</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Initation Việt Nam - Quản lý kho hàng
+              </h1>
             </div>
             <div className="relative">
               <button
@@ -47,14 +49,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 focus:outline-none"
               >
                 <span className="text-sm font-medium">
-                  {user?.username} ({user?.role === "admin" ? "Admin" : "User"})
+                  {user?.role === "admin" ? "Admin" : "User"}
                 </span>
                 <span className="text-lg">👤</span>
+
+                {/* <span className="text-sm font-medium">
+                  {user?.username} ({user?.role === "admin" ? "Admin" : "User"})
+                </span>
+                <span className="text-lg">👤</span> */}
               </button>
 
               {showUserMenu && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                  <Link
+                  {/* <Link
                     to="/profile"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={() => setShowUserMenu(false)}
@@ -67,7 +74,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     onClick={() => setShowUserMenu(false)}
                   >
                     Đổi mật khẩu
-                  </Link>
+                  </Link> */}
                   <hr className="my-1" />
                   <button
                     onClick={handleLogout}
@@ -92,7 +99,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <Link
                     to={item.path}
                     className={`flex items-center space-x-3 text-gray-700 p-2 rounded-lg hover:bg-gray-100 ${
-                      location.pathname === item.path ? "bg-blue-100 text-blue-700" : ""
+                      location.pathname === item.path
+                        ? "bg-blue-100 text-blue-700"
+                        : ""
                     }`}
                   >
                     <span className="text-lg">{item.icon}</span>
@@ -108,7 +117,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <main className="flex-1 p-6">{children}</main>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
